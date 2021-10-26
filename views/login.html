@@ -10,7 +10,7 @@
 <body>
     <div class="login-box">
         <h2> Login </h2>
-        <form autocomplete="off">
+        <form autocomplete="off" onsubmit="postLogin(event)" method="post">
             <div class="textbox">
                 <input type="text" id="name" placeholder="Your Name" autocomplete="off" required>
             </div>
@@ -21,12 +21,34 @@
                 <input type="tel" id="phone" placeholder="Your Phone No" autocomplete="none" required minlength="10" maxlength="10">
             </div>
             <div class="textbox">
-                <input type="password" id="password" placeholder="Set Your Password" autocomplete="none" required
+                <input type="password" id="password" placeholder="Set Your Password" autocomplete="none" required>
             </div>
            
             <button type="submit" class="btn">Login</button>
            
         </form>
     </div>  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js"></script>
+    <script>
+        function postLogin(event){
+            event.preventDefault();
+            const name = event.target.name.value;
+            const email = event.target.email.value;
+            const phone = event.target.phone.value;
+            const password = event.target.password.value;
+            userDetail = {
+                name:name,
+                phone:phone,
+                email:email,
+                pass:password
+            }
+            axios.post('http://localhost:3000/login', userDetail)
+             .then(Response=>{
+                 console.log(Response)
+             })
+             .catch(err=>console.log(err))
+        }
+    </script>
 </body>
 </html>
