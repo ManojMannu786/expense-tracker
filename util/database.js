@@ -1,4 +1,4 @@
-const Sequelize = require('sequlize')
+const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize('expense-tracker', 'root', '1234', {
     dialect: 'mysql',

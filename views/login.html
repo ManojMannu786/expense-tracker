@@ -10,7 +10,7 @@
 <body>
     <div class="login-box">
         <h2> Login </h2>
-        <form autocomplete="off" onsubmit="postLogin(event)" method="post">
+        <form autocomplete="off" onsubmit="postLogin(event)" >
             <div class="textbox">
                 <input type="text" id="name" placeholder="Your Name" autocomplete="off" required>
             </div>
@@ -44,10 +44,10 @@
                 pass:password
             }
             axios.post('http://localhost:3000/login', userDetail)
-             .then(Response=>{
-                 console.log(Response)
-             })
-             .catch(err=>console.log(err))
+            //  .then(Response=>{
+            //      console.log(Response)
+            //  })
+            //  .catch(err=>console.log(err))
         }
     </script>
 </body>
