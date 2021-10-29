@@ -32,6 +32,14 @@
             }
 
             axios.post('http://localhost:3000/login', userDetail)
+            .then(response=>{
+                if(response.status === 200){
+                    // console.log(response.data.token)
+                    localStorage.setItem('token', response.data.token)
+                    location.href="./expense.html"
+                }
+                else{ throw new Error}
+            }).catch(err=>{console.log(err)})
         }
     </script>
 </body>
