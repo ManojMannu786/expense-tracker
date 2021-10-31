@@ -37,8 +37,9 @@ exports.postSignUp = (req,res,next)=>{
 }
 
 function generateAccessToken(id){
-    const random = Math.random();
-    return jwt.sign(id, `${random}`)
+    // const random = Math.random();
+    const secretKey = 'ManojKumarSharpenier'
+    return jwt.sign(id, `${secretKey}`)
 }
 
 exports.postLogin = (req,res,next)=>{
@@ -52,8 +53,8 @@ exports.postLogin = (req,res,next)=>{
                     return res.json({success: false, message: 'something went wrong'})
                 }
                 if(response){
-                    console.log(JSON.stringify(user))
-                    console.log(user[0].id)
+                    // console.log(JSON.stringify(user))
+                    // console.log(user[0].id)
                     const token = generateAccessToken(user[0].id)
                     res.json({token:token, message:'successfully logged in'})
                 }

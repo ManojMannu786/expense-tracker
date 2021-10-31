@@ -8,7 +8,7 @@
     <title>Expense</title>
 </head>
 <body>
-    <div class="login-box">
+    <div class="expense-box">
         <h2>Expense</h2>
         <form onsubmit="addNewExpense(event)">
             <div class="textbox">
@@ -29,9 +29,69 @@
                 </select>
             </div>
             <button class="btn">Add Expense</button>
+            <!-- type="submit" -->
         </form>
+    </div>
+    <ul class="expenseList"></ul>
+    <div class="expense-detail">
+        
+
+        </ul>
 
     </div>
     
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.22.0/axios.min.js"></script>
+<script>
+    function addNewExpense(e){
+        e.preventDefault();
+        const expenseDetail = {
+            amount: e.target.expense.value,
+            description: e.target.description.value,
+            category: e.target.category.value
+        }
+        console.log(expenseDetail)
+        const token = localStorage.getItem('token')
+        // showExpense(expenseDetail)
+        axios.post('http://localhost:3000/user/addExpense', expenseDetail, {headers:{authorization: token}})
+        .then(response=> {
+            if(response.status === 201){
+             console.log(response);
+            //  showExpense(response.data.expense);
+            }
+            else{
+                 throw new Error('failed bla bla')
+            }
+        }).catch(err=> console.log(err))
+
+        expenseEg={
+            id:1,
+            amount:10,
+            description: 'demo description',
+            category: 'food'
+        }
+        showExpense(expenseEg)
+        function showExpense(expense){
+            // const parentNode = document.getElementsByClassName('expense-list');
+            // const node = document.createElement('li');
+            // node.id = `${expense.id}`
+            // const textNode = document.createTextNode(`${expense.amount} - ${expense.description} - ${expense.category}`)
+            // const btn = document.createElement('button')
+            // btn.event=onclick(`deleteExpense(event,${expense.id})`)
+            // node.appendChild(textNode);
+            // node.appendChild(btn);
+            // parentNode.appendChild(node);
+
+            const parentElement = document.getElementById('expenseList');
+    const expenseElemId = `expense-${expense.id}`;
+    parentElement.innerHTML += `
+        <li id=${expenseElemId}>
+            ${expense.amount} - ${expense.category} - ${expense.description}
+            <button onclick='deleteExpense(event, ${expense.id})'>
+                Delete Expense
+            </button>
+        </li>`
+        }
+    }
+</script>
 </html>

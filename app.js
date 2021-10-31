@@ -11,6 +11,12 @@ const sequelize = require('./util/database');
 
 const userRoute = require('./routes/user')
 
+const User = require('./model/user')
+const Expense = require('./model/expense')
+
+User.hasMany(Expense);
+Expense.belongsTo(User);
+
 app.use(userRoute)
 
 sequelize.sync()
